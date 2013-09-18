@@ -1,4 +1,13 @@
 class SessionsController < ApplicationController
+  
+  def index
+    if current_user.nil?
+      redirect_to login_url
+    else
+      # XXX ToDo: redirect to session referrer, maybe? eg, take user back to... something.
+      redirect_to dashboard_url
+    end
+  end
 
   def new
     render :new

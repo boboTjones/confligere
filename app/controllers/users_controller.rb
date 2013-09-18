@@ -8,11 +8,10 @@ class UsersController < ApplicationController
   def create
     #@user = User.new(user_params)
     # XXX ToDo: mass assignment, ftl
-    # THIS. SUCKS. 
     @user = User.new(params[:user])
     puts @user
     if @user.save
-      redirect_to :controller => "dashboard", :notice => "Try logging in now!"
+      redirect_to login_url, :notice => "Try logging in now!"
     else
       redirect_to :action => "new", :notice => "DAG NABBIT"
     end
