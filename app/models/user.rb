@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   
   validates_presence_of :password, :on => :create
+  validates_confirmation_of :password, :message => "Password confirmation must match!"
   validates_uniqueness_of :username
   
   def self.authenticate(username, password)

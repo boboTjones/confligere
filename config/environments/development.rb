@@ -26,4 +26,9 @@ Confligere::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  
+  ## sass stuff
+  config.sass.line_comments = true
+  config.sass.cache = false
+  config.action_controller.permit_all_parameters = true
 end
