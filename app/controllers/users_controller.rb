@@ -16,6 +16,19 @@ class UsersController < ApplicationController
       redirect_to :action => "new", :notice => "DAG NABBIT"
     end
   end
+  
+  def edit
+    @user = User.find(current_user.id)
+  end
+  
+  def update
+    u = User.find(current_user.id)
+    begin
+      u.update!(params[:user])
+    rescue => e
+    end
+    redirect_to :action => "edit"
+  end
 
   private
   

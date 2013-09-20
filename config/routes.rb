@@ -62,6 +62,9 @@ Confligere::Application.routes.draw do
   match 'journal/:id' => 'journal#show', via: [:get, :post]
   get "timeline" => "timeline#index", :as => "timeline"
   get "timeline/dow" => "timeline#dow"
+  get "/account" => "users#edit"
+  post "/users/update" => "users#update"
+  
   root :to => "sessions#index"
   resources :users
   resources :sessions
