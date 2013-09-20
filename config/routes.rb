@@ -58,12 +58,14 @@ Confligere::Application.routes.draw do
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
   get "dashboard" => "dashboard#index", :as => "dashboard"
-  get "log" => "log#index", :as => "log"
+  get "journal" => "journal#index", :as => "journal"
+  match 'journal/:id' => 'journal#show', via: [:get, :post]
   get "timeline" => "timeline#index", :as => "timeline"
+  get "timeline/dow" => "timeline#dow"
   root :to => "sessions#index"
   resources :users
   resources :sessions
   resources :dashboard
-  resources :log
+  resources :journal
   resources :timeline
 end
