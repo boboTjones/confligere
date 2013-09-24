@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130919010025) do
+ActiveRecord::Schema.define(version: 20130924190428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,21 @@ ActiveRecord::Schema.define(version: 20130919010025) do
     t.text     "notes"
     t.integer  "severity"
     t.string   "type"
+    t.datetime "occurred_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "expectations", force: true do |t|
+    t.string   "summary"
+    t.integer  "scale"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "goals", force: true do |t|
+    t.string   "summary"
+    t.integer  "scale"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -32,6 +47,17 @@ ActiveRecord::Schema.define(version: 20130919010025) do
     t.datetime "updated_at"
   end
 
+  create_table "relationships", force: true do |t|
+    t.string  "first_name"
+    t.string  "nickname"
+    t.integer "duration"
+    t.integer "age"
+    t.boolean "primary"
+    t.string  "first_contact"
+    t.string  "occupation"
+    t.integer "education"
+  end
+
   create_table "users", force: true do |t|
     t.string   "username"
     t.string   "email"
@@ -39,6 +65,14 @@ ActiveRecord::Schema.define(version: 20130919010025) do
     t.string   "password_salt"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "marital_status"
+    t.string   "orientation"
+    t.string   "gender"
+    t.boolean  "so_is_user",     default: false
+    t.integer  "age"
+    t.string   "occupation"
+    t.integer  "education"
+    t.integer  "children"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
