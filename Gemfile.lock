@@ -120,6 +120,7 @@ PLATFORMS
 DEPENDENCIES
   angularjs-rails
   bcrypt-ruby (~> 3.0.0)
+  builder
   chronic
   coffee-rails (~> 4.0.0)
   haml-rails

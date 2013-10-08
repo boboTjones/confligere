@@ -69,7 +69,7 @@ Confligere::Application.routes.draw do
   resources :timeline
   
   scope :account do
-    get "/basic(.:format)" => "account#basic"
+    get "/stuff(.:format)" => "account#stuff"
     post "/update" => 'account#update'
   end
 

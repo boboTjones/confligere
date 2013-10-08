@@ -1,10 +1,16 @@
 !!! 5
-%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en", "ng-app" => true}
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en", "ng-app" => "confligere"}
   %head
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = stylesheet_link_tag "bootstrap.min.css", media: "all", "data-turbolinks-track" => true
-    %title Confligere
+    = javascript_include_tag "angular.min.js"
+    = javascript_include_tag "angular-resource.min.js"
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "bootstrap.min.js"
+    = javascript_include_tag "confligere.js"
     = csrf_meta_tags
+
+    %title Confligere
   %body
     :javascript 
       var currentPage = "##{controller_name}";
@@ -39,8 +45,3 @@
       
     %div{:class => "container-fluid"}
       = yield
-
-    = javascript_include_tag "application", "data-turbolinks-track" => true
-    = javascript_include_tag "angular.min.js"
-    = javascript_include_tag "bootstrap.min.js"
-    = javascript_include_tag "confligere.js"
