@@ -14,3 +14,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Things we don't want seen.
+config/database.yml
+config/environments/production.rb
+config/initializers/secret_token.rb

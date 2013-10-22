@@ -61,6 +61,7 @@ Confligere::Application.routes.draw do
   # this makes the calendar work
   get "timeline/dow" => "timeline#dow"
   #match 'journal/:id' => 'journal#show', via: [:get, :post]
+  patch "/users/update" => "account#update"
   
   resources :users
   resources :sessions
@@ -69,8 +70,13 @@ Confligere::Application.routes.draw do
   resources :timeline
   
   scope :account do
-    get "/stuff(.:format)" => "account#stuff"
+    get "/basic" => "account#basic"
+    get "/personal" => "account#personal"
+    get "/affiliations" => "account#affiliations"
+    get "/expectations" => "account#expectations"
+    get "/password" => "account#password"
     post "/update" => 'account#update'
+    
   end
 
   root :to => "sessions#index"

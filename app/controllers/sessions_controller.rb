@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       redirect_to login_url
     else
       # XXX ToDo: redirect to session referrer, maybe? eg, take user back to... something.
-      redirect_to dashboard_url
+      redirect_to :controller => "dashboard"
     end
   end
 

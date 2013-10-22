@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :password
+  has_many :expectations, dependent: :destroy
   
   before_save :encrypt_password
   
