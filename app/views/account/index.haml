@@ -1,0 +1,22 @@
+:javascript
+  function dothat(part) {
+    $("#likethis").load("/account/" + part);
+  }
+
+%h1 
+  Personal Data
+
+%ul.nav.nav-tabs
+  %li.active
+    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('basic'); return false"} Account Settings 
+  %li
+    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('personal'); return false"} About You
+  %li
+    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('expectations'); return false"} Expectations
+  %li
+    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('affiliations'); return false"} Relationships
+  %li
+    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('password'); return false"} Change Password
+      
+%div#likethis
+  = render :partial => "basic"

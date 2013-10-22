@@ -1,0 +1,7 @@
+= form_for @expectation, :url {:action => "update"} do |f|
+  %p
+    = f.label :summary
+    = f.text_field :summary
+  %p
+    = f.label :scale
+    = f.number_field :scale

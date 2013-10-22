@@ -1,0 +1,26 @@
+%script light_up_calendar();
+%h1 
+  Events in
+  %span.monthname
+    = @current
+
+%div.span18
+  %table.table-striped.calendar(cellspacing="5" cellpadding="5" id="calendar")
+    %thead
+      %tr    
+        - @days.each do |day|
+          %th.span4
+            =day
+    %tbody
+      - 5.times do |week|
+        %tr
+          - 7.times do |day|
+            %td
+              %label.dow
+
+  %select.pull-lef{:id => "montharoo"}
+    %option
+      Jump to..
+    - @months.each do |month|
+      %option{:value => month}
+        = month
