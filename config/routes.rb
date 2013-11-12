@@ -56,28 +56,25 @@ Confligere::Application.routes.draw do
   
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
-  get "signup" => "users#new", :as => "signup"
-  get "account" => "account#index", :as => "account"
+  get "signup" => "user#new", :as => "signup"
   # this makes the calendar work
   get "timeline/dow" => "timeline#dow"
   #match 'journal/:id' => 'journal#show', via: [:get, :post]
-  patch "/users/update" => "account#update"
   
-  resources :users
+  scope :user do
+    get "/basic" => "user#basic"
+    get "/personal" => "user#personal"
+    get "/affiliations" => "user#affiliations"
+    get "/expectations" => "user#expectations"
+    get "/password" => "user#password"
+    post "/update" => 'user#update'
+  end
+    
   resources :sessions
   resources :dashboard
   resources :journal
   resources :timeline
-  
-  scope :account do
-    get "/basic" => "account#basic"
-    get "/personal" => "account#personal"
-    get "/affiliations" => "account#affiliations"
-    get "/expectations" => "account#expectations"
-    get "/password" => "account#password"
-    post "/update" => 'account#update'
-    
-  end
+  resources :user
 
   root :to => "sessions#index"
 
