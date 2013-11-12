@@ -1,0 +1,21 @@
+= form_for current_user do |f|
+  %p
+    = f.label :marital_status
+    = f.text_field :marital_status
+  %p
+    = f.label :orientation
+    = f.text_field :orientation
+  %p
+    = f.label :gender
+    = f.text_field :gender
+  %p
+    = f.label :age
+    = f.number_field :age
+  %p
+    = f.label :education
+    = f.number_field :education
+  %p
+    = f.label :children
+    = f.number_field :children
+  %p.button
+    = f.submit 'Save'
