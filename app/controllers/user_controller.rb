@@ -12,7 +12,7 @@ class UserController < ApplicationController
   def create
     #@user = User.new(user_params)
     # XXX ToDo: mass assignment, ftl
-    @user = User.new(params[:user])
+    @user = User.new(check_params(params[:user]))
     puts @user
     if @user.save
       redirect_to login_url, :notice => "Try logging in now!"
@@ -22,12 +22,16 @@ class UserController < ApplicationController
   end
 
   def update
-    u = User.find(current_user.id)
     begin
-      u.update!(check_params(params[:account]))
+      current_user.update!(check_params(params[:user]))
     rescue => e
+    end  
+    if !request.xhr?
+      puts "MOOSE BOOGERS"
+      redirect_to :action => "index"
+    else
+      render :nothing => true
     end
-    redirect_to :action => "index"
   end
 
   def basic
@@ -39,15 +43,88 @@ class UserController < ApplicationController
     render :partial => "personal"
   end
   
-  def affiliations
-    render :partial => "affiliations"
+  def relationships
+    @relationship = Relationship.new
+    @relationships = current_user.relationships
+    render :partial => "relationships"
+  end
+  
+  def relationship
+    #Seriously?
+    begin
+      @relationship = current_user.relationship.find params[:id]
+    rescue => e
+      puts e
+    end
+    render :partial => "edit_relationship"    
+  end
+  
+  def mod_relationship
+    if params[:id]
+      r = current_user.relationships.find params[:id]
+    else
+      r = Relationship.new
+    end
+    case params[:a]
+    when "delete"
+      r.delete
+    else
+      begin
+        r.update!(check_params(params[:relationship]))
+      rescue => e
+        puts e
+      end
+    end
+    if !request.xhr?
+      redirect_to :action => "index"
+    else
+      render :nothing => true
+    end
   end
   
   def expectations
-    @expectations = current_user.expectations.all
+    @expectations = current_user.expectations
     @expectation = Expectation.new
     render :partial => "expectations"
   end
+  
+  def expectation
+    #Seriously?
+    begin
+      @expectation = current_user.expectations.find params[:id]
+    rescue => e
+      puts e
+    end
+    render :partial => "edit_expectation"
+  end
+  
+  def mod_expectation
+    if params[:id]
+      e = current_user.expectations.find params[:id]
+    else
+      e = Expectation.new(:user_id => current_user.id)
+    end
+    case params[:a]      
+    when "delete"
+      begin
+        e.delete
+      rescue => e
+        puts e
+      end
+    else
+      begin
+        e.update!(check_params(params[:expectation]))
+      rescue => e
+        puts e
+      end
+    end
+    if !request.xhr?
+      redirect_to :action => "index"
+    else
+      render :nothing => true
+    end
+  end
+
   
   def password
     @user = current_user
@@ -57,14 +134,16 @@ class UserController < ApplicationController
   private
   
   def check_params(params)
+    ## XXX ToDo:
     ## This sucks, but I can't make Rails4 params thing work the way I need it to.
     ## Obviously, more research is required
-    ## {"id"=>nil, "username"=>nil, "email"=>nil, "password_hash"=>nil, "password_salt"=>nil, "first_name"=>nil, 
-    ## "last_name"=>nil, "created_at"=>nil, "updated_at"=>nil, "marital_status"=>nil, 
-    ## "orientation"=>nil, "gender"=>nil, "so_is_user"=>false, "age"=>nil, "occupation"=>nil, "education"=>nil}
     
-    allowed = ["first_name", "last_name", "password", "password_confirmation", "marital_status","orientation", "gender", "so_is_user", "age", "occupation", "education"]
-    return params.delete_if { |k,v| !allowed.include?(k) }
+    allowed = ["first_name", "last_name", "password", "password_confirmation", 
+      "marital_status","orientation", "gender", "so_is_user", "age", "occupation", 
+      "education", "summary", "scale", "children", "occupation", "first_contact", "duration",
+      "nickname"]
+      params.delete_if { |k,v| !allowed.include?(k) }
+    return params
   end
   
   def user_params

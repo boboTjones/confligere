@@ -7,6 +7,7 @@
     = javascript_include_tag "angular-resource.min.js"
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = javascript_include_tag "bootstrap.min.js"
+    = javascript_include_tag "bootbox.min.js"
     = javascript_include_tag "confligere.js"
     = csrf_meta_tags
 
@@ -15,6 +16,7 @@
     :javascript 
       var currentPage = "##{controller_name}";
       $(currentPage).addClass("active");
+
     #user_nav{:class => "navbar navbar-inverse navbar-fixed-top"}
       %div{:class => "navbar-inner"}
         %div{:class => "container-fluid"}
@@ -26,8 +28,10 @@
                   %a{:href => "/dashboard"} Dashboard
                 %li#journal 
                   %a{:href => "/journal"} Journal
+                %li#goals 
+                  %a{:href => "/goals"} Goals
                 %li#timeline 
-                  %a{:href => "/timeline"} Timeline
+                  %a{:href => "/timeline"} Events
                 %li#user
                   %a{:href => "/user"} Personal
             %p{:class => "navbar-text pull-right"}

@@ -1,21 +1,50 @@
-= form_for current_user do |f|
+:javascript
+  $("#ajaxsubmit").on('click', function(e) {
+      e.preventDefault();
+      var formURL = $(this).closest("form").attr("action");
+      var postData = $(this).closest("form").serializeArray();
+      $.ajax({
+        type: "POST",
+        url: formURL,
+        data: postData,
+        success: function(d, status, jqXHR) {
+          bootbox.alert("Your information has been updated.");
+          $("#likethis").load("/user/personal");
+        },
+        error: function(jqXHR, status, errMSG) {
+          alert(errMSG);
+        }
+      }
+      );
+    }
+  );
+
+%div.span2.well
+  %h4 About this
+  %p Enter as much or as little personal data as you prefer. Currently, Confligere does not use this data for anything, though at some point it may be useful to identify challenges specific to the context you live in and use these things with your expectations and goals. 
+%div.span6.well
   %p
-    = f.label :marital_status
-    = f.text_field :marital_status
-  %p
-    = f.label :orientation
-    = f.text_field :orientation
-  %p
-    = f.label :gender
-    = f.text_field :gender
-  %p
-    = f.label :age
-    = f.number_field :age
-  %p
-    = f.label :education
-    = f.number_field :education
-  %p
-    = f.label :children
-    = f.number_field :children
-  %p.button
-    = f.submit 'Save'
+    = form_for current_user, :url => {:action => "update"}, :html => {:id => "ajaxform"} do |f|
+      %p
+        = f.label :marital_status
+        = f.text_field :marital_status
+      %p
+        = f.label :orientation
+        = f.text_field :orientation
+      %p
+        = f.label :gender
+        = f.text_field :gender
+      %p
+        = f.label :age
+        = f.number_field :age
+      %p
+        = f.label :education
+        = f.number_field :education
+      %p
+        = f.label :children
+        = f.number_field :children
+      %p
+        = f.check_box :so_is_user
+        = label_tag :primary, 'Check if a SO is a Confligere user.', class: "checkbox inline", style: "padding-left: 2px;"
+      %p.button
+        = f.submit "Save", :id => "ajaxsubmit"

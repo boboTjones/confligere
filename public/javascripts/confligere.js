@@ -5,8 +5,6 @@ $(document).ready(function() {
     $('nav li').removeClass('active');
     var activeTab = $('#nav').attr('class');
     $('li.' + activeTab).addClass('active');
-
-
     
     $('#montharoo').change(function(){
       var month = $(this).val();
@@ -26,4 +24,12 @@ function light_up_calendar(month) {
       $("td:eq(" + loc + ")").find("label").append(dow);
     }
   });
+}
+
+function doSomething(e) {
+    e.preventDefault();
+    //var postData = $(this).serializeArray();
+    //var formURL = $(this).attr("action");
+    alert("hot!");
+    //$.post(formURL, postData);
 }

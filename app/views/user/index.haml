@@ -2,7 +2,7 @@
   function dothat(part) {
     $("#likethis").load("/user/" + part);
   }
-
+  
 %h1 
   Personal Data
 
@@ -10,13 +10,14 @@
   %li.active
     %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('basic'); return false"} Account Settings 
   %li
+    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('password'); return false"} Change Password
+  %li
     %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('personal'); return false"} About You
   %li
     %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('expectations'); return false"} Expectations
   %li
-    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('affiliations'); return false"} Relationships
-  %li
-    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('password'); return false"} Change Password
+    %a{:href => "#", "data-toggle" => "tab", :onclick => "dothat('relationships'); return false"} Relationships
+
       
 %div#likethis
   = render :partial => "basic"

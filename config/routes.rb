@@ -64,10 +64,14 @@ Confligere::Application.routes.draw do
   scope :user do
     get "/basic" => "user#basic"
     get "/personal" => "user#personal"
-    get "/affiliations" => "user#affiliations"
+    get "/relationships" => "user#relationships"
     get "/expectations" => "user#expectations"
+    get "/expectation/:id" => "user#expectation"
     get "/password" => "user#password"
-    post "/update" => 'user#update'
+    post "/update" => "user#update"
+    post "/mod_relation" => "user#mod_relation"
+    post "/mod_expectation" => "user#mod_expectation"
+    patch "/mod_expectation/:id" => "user#mod_expectation"
   end
     
   resources :sessions
@@ -75,6 +79,7 @@ Confligere::Application.routes.draw do
   resources :journal
   resources :timeline
   resources :user
+  resources :goals
 
   root :to => "sessions#index"
 

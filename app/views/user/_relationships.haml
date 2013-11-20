@@ -1,0 +1,73 @@
+:javascript
+  $(".delete").on('click', function(e) {
+    e.preventDefault();
+    expID = $(this).attr("id");
+    $.post("/user/mod_relationship/" + expID + "?a=delete");
+    $("#likethis").load("/user/relationships");
+  });
+
+  $(".edit").on('click', function(e){
+    e.preventDefault();
+    expID = $(this).attr("id");
+    $(".modal-title").text("Edit your relationship");
+    $(".modal-body").load("/user/relationship/" + expID);
+  });
+
+  $('#modal-form-submit').on('click', function(e){
+    e.preventDefault();
+    var formURL = $("#modal-form").attr("action");
+    var postData = $("#modal-form").serializeArray();
+    $.post(formURL, postData);
+    $('.modal-backdrop').remove();
+    $("#likethis").load("/user/relationships");
+  });
+  
+%div.span2.well
+  %h4 About this
+  %p If you are in a relationship with another Confligere user, you can enter that information here. 
+  %p Confligere is not a social media site. Entering data here does not link your accounts in any way that shares data between them. 
+  
+%div.span4.well
+  %h4
+    Your relationships
+  %a{:href => "#", "data-toggle" => "modal", "data-target" => "#relModal"} Click here to add a new relationship
+
+  - if @relationships.size < 1
+    %p 
+      You have not entered any relationships yet.      
+  - else
+    %ul.unstyled
+      - @relationships.each do |e|
+        %li
+          %a.delete{:href => "#", :id => e.id} &#10008;
+          %a.edit{:href => "#", :id => e.id, "data-toggle" => "modal", "data-target" => "#relModal"} &#9998;
+          = e.summary
+          
+%div#relModal.modal.fade{"role" => "dialog", "aria-hidden" => "true"}   
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header.well
+        %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"}
+          &times;
+        %h4.modal-title Add a new relationship
+      %div.modal-body
+        = form_for @relationship, :url => {:action => "mod_relation"} do |f|
+          = check_box_tag :primary
+          = label_tag :primary, 'Check if this is your primary relationship.', class: "checkbox inline", style: "padding-left: 2px;"
+          %p
+          = f.label :first_name
+          = f.text_field :first_name
+          %label Confligere username
+          = f.text_field :nickname
+          %label Length of relationship in months
+          = f.number_field :duration
+          %label His or her age in years
+          = f.number_field :age
+          %label A brief description of how you met
+          = f.text_field :first_contact
+          %label What does [s]he do for a living?
+          = f.text_field :occupation
+          %label How many years of education does this person have?
+          = f.number_field :education
+      %div.modal-footer
+        %button#modal-form-submit.btn.btn-primary Save

@@ -1,18 +1,65 @@
-%div.span10
-  %div.span2
-    %p
-      Although expectations define us, we are often unaware that our own ideals have on our relationship. Honestly and accurately stating your goals and routinely revisiting, reviewing and revising them is all part of the introspective process. 
+:javascript
+  $(".delete").on('click', function(e) {
+    e.preventDefault();
+    expID = $(this).attr("id");
+    $.post("/user/mod_expectation?a=delete", "id=" + expID);
+    $("#likethis").load("/user/expectations");
+  });
+
+  $(".edit").on('click', function(e){
+    e.preventDefault();
+    expID = $(this).attr("id");
+    $(".modal-title").text("Edit your expectation");
+    $(".modal-body").load("/user/expectation/" + expID);
+  });
+
+  $('#modal-form-submit').on('click', function(e){
+    e.preventDefault();
+    var formURL = $("#modal-form").attr("action");
+    var postData = $("#modal-form").serializeArray();
+    $.post(formURL, postData);
+    $('.modal-backdrop').remove();
+    $("#likethis").load("/user/expectations");
+  });
+  
+%div.span2.well
+  %h4 About this
+  %p
+    Although expectations define us, we are often unaware that our own ideals have on our relationship. Honestly and accurately stating your goals and routinely revisiting, reviewing and revising them is all part of the introspective process. 
+  %p 
+    For example, if you expect your SO to take out the garbage, but you never ask, you are effectively asking the person you love most in the whole world to read your mind. Be glad [s]he can't.
+      
+%div.span4.well
+  %h4
+    Your expectations
+  %a{:href => "#", "data-toggle" => "modal", "data-target" => "#expModal"} Click here to add a new expectation
+
+  - if @expectations.size < 1
     %p 
-      For example, if you expect your SO to take out the garbage, but you never ask, you are effectively asking the person you love most in the whole world to read your mind. Be glad [s]he can't.
-  %div.span6
-    %form.new_expectation{:method => "POST", :action => "/account/update"}
-      %p
-        %label
-          Provide a brief summary of your expectation:
-        %input{:type => :text_field}
-      %p
-        %label 
-          On a scale of 1-100, rate how important this expectation is to you:
-        %input{:type => :number_field}
-      %p.button
-        %input{:type => :submit, :value => "Save"}
+      You have not entered any expectations yet.      
+  - else
+    %ul.unstyled
+      - @expectations.each do |e|
+        %li
+          %a.delete{:href => "#", :id => e.id} &#10008;
+          %a.edit{:href => "#", :id => e.id, "data-toggle" => "modal", "data-target" => "#expModal"} &#9998;
+          = e.summary
+          
+%div#expModal.modal.fade{"role" => "dialog", "aria-hidden" => "true"}   
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header.well
+        %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"}
+          &times;
+        %h4.modal-title Add a new expectation
+      %div.modal-body
+        = form_for @expectation, :url => {:action => "mod_expectation"}, :html => {:id => "modal-form"} do |f|
+          %p
+            %label
+              Provide a brief summary of your expectation:
+            = f.text_field :summary
+            %label 
+              On a scale of 1-100, rate how important this expectation is to you:
+            = f.number_field :scale
+      %div.modal-footer
+        %button#modal-form-submit.btn.btn-primary Save
