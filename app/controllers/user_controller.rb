@@ -50,9 +50,8 @@ class UserController < ApplicationController
   end
   
   def relationship
-    #Seriously?
     begin
-      @relationship = current_user.relationship.find params[:id]
+      @relationship = current_user.relationships.find params[:id]
     rescue => e
       puts e
     end
@@ -63,7 +62,7 @@ class UserController < ApplicationController
     if params[:id]
       r = current_user.relationships.find params[:id]
     else
-      r = Relationship.new
+      r = Relationship.new(:user_id => current_user.id)
     end
     case params[:a]
     when "delete"

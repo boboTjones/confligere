@@ -2,7 +2,7 @@
   $(".delete").on('click', function(e) {
     e.preventDefault();
     expID = $(this).attr("id");
-    $.post("/user/mod_relationship/" + expID + "?a=delete");
+    $.post("/user/mod_relationship?a=delete", "id=" + expID );
     $("#likethis").load("/user/relationships");
   });
 
@@ -21,7 +21,7 @@
     $('.modal-backdrop').remove();
     $("#likethis").load("/user/relationships");
   });
-  
+
 %div.span2.well
   %h4 About this
   %p If you are in a relationship with another Confligere user, you can enter that information here. 
@@ -41,7 +41,7 @@
         %li
           %a.delete{:href => "#", :id => e.id} &#10008;
           %a.edit{:href => "#", :id => e.id, "data-toggle" => "modal", "data-target" => "#relModal"} &#9998;
-          = e.summary
+          = e.first_name
           
 %div#relModal.modal.fade{"role" => "dialog", "aria-hidden" => "true"}   
   %div.modal-dialog
@@ -51,7 +51,7 @@
           &times;
         %h4.modal-title Add a new relationship
       %div.modal-body
-        = form_for @relationship, :url => {:action => "mod_relation"} do |f|
+        = form_for @relationship, :url => {:action => "mod_relationship"}, :html => {:id => "modal-form"} do |f|
           = check_box_tag :primary
           = label_tag :primary, 'Check if this is your primary relationship.', class: "checkbox inline", style: "padding-left: 2px;"
           %p
