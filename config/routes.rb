@@ -56,6 +56,7 @@ Confligere::Application.routes.draw do
   
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
+  post "login" => "sessions#create"
   get "signup" => "user#new", :as => "signup"
   # this makes the calendar work
   get "timeline/dow" => "timeline#dow"
@@ -70,6 +71,7 @@ Confligere::Application.routes.draw do
     get "/expectation/:id" => "user#expectation"
     get "/password" => "user#password"
     post "/update" => "user#update"
+    post "/create" => "user#create"
     post "/mod_relationship" => "user#mod_relationship"
     patch "/mod_relationship/:id" => "user#mod_relationship"
     post "/mod_expectation" => "user#mod_expectation"

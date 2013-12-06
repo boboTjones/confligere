@@ -1,0 +1,15 @@
+%h1 Relationship goals
+
+%div.span12
+  %ul.unstyled
+    - @goals.each do |g|
+      %li
+        %a{:href => "/journal/#{g.id}"}
+          = g.summary
+        %p.muted
+          %small
+            Last updated at: 
+            = g.updated_at
+        
+%div.span6.pull-right
+  %a{:href => "/goals/new"} Create a new goal.

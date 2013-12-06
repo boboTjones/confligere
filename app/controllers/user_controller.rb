@@ -1,4 +1,7 @@
 class UserController < ApplicationController
+  
+  protect_from_forgery :except => :create
+  
   def index
     ## XXX ToDo: 
     ## Passing options to #find is deprecated. Please build a scope and then call #find on it.
@@ -137,7 +140,7 @@ class UserController < ApplicationController
     ## This sucks, but I can't make Rails4 params thing work the way I need it to.
     ## Obviously, more research is required
     
-    allowed = ["first_name", "last_name", "password", "password_confirmation", 
+    allowed = ["first_name", "last_name", "username", "email", "password", "password_confirmation", 
       "marital_status","orientation", "gender", "so_is_user", "age", "occupation", 
       "education", "summary", "scale", "children", "occupation", "first_contact", "duration",
       "nickname"]

@@ -12,8 +12,7 @@
     %title Confligere
   %body
     :javascript 
-      var currentPage = "##{controller_name}";
-      $(currentPage).addClass("active");
+      $("##{controller_name}").addClass("active");
       
     #user_nav{:class => "navbar navbar-inverse navbar-fixed-top"}
       %div{:class => "navbar-inner"}
