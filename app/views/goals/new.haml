@@ -1,0 +1,9 @@
+%h1 New goal Entry
+= form_for :goal, url: {action: "create"} do |f|
+  %label Summary
+  = f.text_field :summary, :placeholder => "Summarize your goal.", :class => "span6"
+  %label On a scale of 1-100, rate the priority of this goal
+  = f.number_field :scale, :class => "span6", :rows => "20"
+  %br
+  = f.submit
+  
