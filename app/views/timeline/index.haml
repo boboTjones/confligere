@@ -3,6 +3,9 @@
   Events in
   %span.monthname
     = @current
+    
+%div.span2
+  %a{:href => "#", "data-toggle" => "modal", "data-target" => "#addEvent"} Add a new event
 
 %div.span18
   %table.table-striped.calendar(cellspacing="5" cellpadding="5" id="calendar")
@@ -18,9 +21,38 @@
             %td
               %label.dow
 
-  %select.pull-lef{:id => "montharoo"}
+  %select.pull-left{:id => "montharoo"}
     %option
       Jump to..
     - @months.each do |month|
       %option{:value => month}
         = month
+        
+%div#addEvent.modal.fade{"role" => "dialog", "aria-hidden" => "true"}   
+  %div.modal-dialog
+    %div.modal-content
+      %div.modal-header.well
+        %button.close{"data-dismiss" => "modal", "aria-hidden" => "true"}
+          &times;
+        %h4.modal-title Add a new event
+      %div.modal-body
+        %form{:action => "/timeline/create", :method => "POST"}
+          %label Title
+          %input{:type => "text", :name => "event[title]"}
+          %label Notes about this event
+          %input{:type => "text", :name => "event[notes]"}
+          %label On a scale of 1-100, rate the intensity of this event
+          %input{:type => "number", :name => "event[severity]"}
+          %label Was this a positive, negative or neutral event?
+          %select{:name => "event[type]"}
+            - %w(positive negative neutral).each do |o|
+              %option{:name => o, :value => o}
+                = o
+          %label Date and time this event occurred
+          %input{:type => "datetime", :name => "event[occurred_at]"}
+          %input{:type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token}
+      %div.modal-footer
+        %button#modal-form-submit.btn.btn-primary Save
+          
+          
+          

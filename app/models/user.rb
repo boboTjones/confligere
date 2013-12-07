@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :expectations, dependent: :destroy
   has_many :relationships, dependent: :destroy
   has_many :goals, dependent: :destroy
+  has_many :events, dependent: :destroy
   
   before_save :encrypt_password
   

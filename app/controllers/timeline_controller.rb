@@ -4,12 +4,20 @@ class TimelineController < ApplicationController
     @days = Date::DAYNAMES
     @months = Date::MONTHNAMES.select {|x| x if !x.nil?}
     @current = Time.now.strftime("%B")
+    @events = current_user.events.all
+    @event = current_user.events.new
   end
   
   def dow
     now = Chronic.parse(params[:month])
     now ||= Time.now
     render :json => endless_numbered_days(now.year,now.month)
+  end
+  
+  def new
+  end
+  
+  def create
   end
   
   private

@@ -6,6 +6,7 @@ class CreateEvents < ActiveRecord::Migration
       t.integer :severity
       t.string :type
       t.datetime :occurred_at
+      t.integer :user_id
       t.timestamps
     end
   end

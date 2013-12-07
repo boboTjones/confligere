@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20131113182810) do
     t.integer  "severity"
     t.string   "type"
     t.datetime "occurred_at"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
