@@ -18,6 +18,13 @@ class TimelineController < ApplicationController
   end
   
   def create
+    event = current_user.events.new
+    begin
+      event.save!
+    rescue => e
+      puts e
+    end
+    redirect_to :action => "index"
   end
   
   private
