@@ -1,0 +1,11 @@
+; make sure that everything is disconnected
+(au:clear-graph)
+ 
+; setup simple au graph
+; piano -> output
+(define piano (au:make-node "aumu" "dls " "appl"))
+(au:connect-node piano 0 *au:output-node* 0)
+(au:update-graph)
+ 
+; play note on piano
+(play-note (now) piano (random 60 80) 80 (* 1.0 *second*))

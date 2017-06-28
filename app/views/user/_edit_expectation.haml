@@ -1,0 +1,8 @@
+= form_for @expectation, :url => {:action => "mod_expectation"}, :html => {:id => "modal-form"} do |f|
+  %p
+    %label
+      Provide a brief summary of your expectation:
+    = f.text_field :summary
+    %label 
+      On a scale of 1-100, rate how important this expectation is to you:
+    = f.number_field :scale

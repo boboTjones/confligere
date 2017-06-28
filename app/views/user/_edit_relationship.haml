@@ -1,0 +1,18 @@
+= form_for @relationship, :url => {:action => "mod_relationship"}, :html => {:id => "modal-form"} do |f|
+  = check_box_tag :primary
+  = label_tag :primary, 'Check if this is your primary relationship.', class: "checkbox inline", style: "padding-left: 2px;"
+  %p
+  = f.label :first_name
+  = f.text_field :first_name
+  %label Confligere username
+  = f.text_field :nickname
+  %label Length of relationship in months
+  = f.number_field :duration
+  %label His or her age in years
+  = f.number_field :age
+  %label A brief description of how you met
+  = f.text_field :first_contact
+  %label What does [s]he do for a living?
+  = f.text_field :occupation
+  %label How many years of education does this person have?
+  = f.number_field :education

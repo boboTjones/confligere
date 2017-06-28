@@ -1,0 +1,14 @@
+%h1 
+  = @entry.title
+  
+%div.span12.well
+  = @entry.entry
+  %p.muted
+  %p
+    %small
+      Last updated at:
+      = @entry.updated_at
+
+%div.span12
+  %button
+    Edit

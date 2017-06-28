@@ -1,0 +1,24 @@
+have basics return json
+
+"Label Name" : ["corresponding field name", "corresponding field value"]
+
+ng-repeat { b in basics }
+
+
+Confligere.directive('focus', function() {
+    return function(scope, element, attrs) {
+        attrs.$observe('focus', function(n) {
+            n === 'true' && element[0].focus();
+        });
+    }
+});
+
+
+    render json: [{:label => "First Name", :value => u.first_name, :type => "text", :name => "first_name"},{:label => "Last Name", :value => u.last_name, :type => "text", :name => "last_name"}, {:label => "Email", :value => u.email, :type => "text", :name => "email"}].to_json
+    
+    , "ng-model" => "{{ basics[$index].name }}"
+
+
+trigger which action is called from the controller with javascript monitoring the tab
+
+change the form values and fields based on 

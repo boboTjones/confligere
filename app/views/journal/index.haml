@@ -1,0 +1,17 @@
+%h1 Journal Entries
+
+%div.span12
+  %ul.unstyled
+    - @entries.each do |entry|
+      %li
+        %a{:href => "/journal/#{entry.id}"}
+          = entry.title
+        %p.muted
+          = entry.entry[0..80] + "..."
+        %p.muted
+          %small
+            Last updated at: 
+            = entry.updated_at
+        
+%div.span6.pull-right
+  %a{:href => "/journal/new"} Write a new journal entry.
