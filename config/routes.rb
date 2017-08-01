@@ -60,7 +60,7 @@ Confligere::Application.routes.draw do
   get "signup" => "user#new", :as => "signup"
   # this makes the calendar work
   get "timeline/dow" => "timeline#dow"
-  #match 'journal/:id' => 'journal#show', via: [:get, :post]
+  match 'journal/:jid' => 'journal#show', via: [:get, :post]
   
   scope :user do
     get "/basic" => "user#basic"

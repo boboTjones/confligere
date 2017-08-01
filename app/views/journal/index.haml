@@ -4,7 +4,7 @@
   %ul.unstyled
     - @entries.each do |entry|
       %li
-        %a{:href => "/journal/#{entry.id}"}
+        %a{:href => "/journal/#{entry.jid}"}
           = entry.title
         %p.muted
           = entry.entry[0..80] + "..."

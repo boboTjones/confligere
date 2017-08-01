@@ -43,9 +43,9 @@ gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
 # gem 'debugger', group: [:development, :test]
 
 gem 'builder'
-gem 'pg'
 gem 'haml-rails'
 #gem 'compass-rails'
 gem 'angularjs-rails'
 gem 'chronic'
 gem 'simple_form'
+gem 'pg'

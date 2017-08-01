@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :relationships, dependent: :destroy
   has_many :goals, dependent: :destroy
   has_many :events, dependent: :destroy
+  has_many :journals
   
   before_save :encrypt_password
   
